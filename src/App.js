@@ -12,11 +12,15 @@ export default class App extends Component {
 		}
 	}
 
+	onSearchChange = e => {
+		console.log(e.target.value);
+	}
+
 	render() {
 		return(
 			<div className='tc'>
 				<h1>RoboFriends</h1>
-				<SearchBox />
+				<SearchBox searchChange={this.onSearchChange} />
 				<CardList robots={this.state.robots} />
 			</div>
 		)
