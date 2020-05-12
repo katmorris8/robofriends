@@ -24,11 +24,13 @@ export default class App extends Component {
 	}
 
 	render() {
-		const filteredRobots = this.state.robots.filter(robot => {
-			return robot.name.toLocaleLowerCase().includes(this.state.searchField.toLocaleLowerCase());
+		const { robots, searchField } = this.state;
+		
+		const filteredRobots = robots.filter(robot => {
+			return robot.name.toLocaleLowerCase().includes(searchField.toLocaleLowerCase());
 		})
 
-		if (this.state.robots.length === 0) {
+		if (robots.length === 0) {
 			return <h1 className='tc f1'>Loading...</h1>
 		} else {
 			return(
