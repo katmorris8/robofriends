@@ -25,23 +25,21 @@ export default class App extends Component {
 
 	render() {
 		const { robots, searchField } = this.state;
-		
+
 		const filteredRobots = robots.filter(robot => {
 			return robot.name.toLocaleLowerCase().includes(searchField.toLocaleLowerCase());
 		})
 
-		if (robots.length === 0) {
-			return <h1 className='tc f1'>Loading...</h1>
-		} else {
-			return(
+		return !robots.length ?
+			<h1 className='tc f1'>Loading...</h1> :
+			(
 				<div className='tc'>
 					<h1 className='f1' >RoboFriends</h1>
 					<SearchBox searchChange={this.onSearchChange} />
 					<Scroll>
-					  <CardList robots={filteredRobots} />
+						<CardList robots={filteredRobots} />
 					</Scroll>
 				</div>
 			)
-		}
 	}
 }
