@@ -10,7 +10,7 @@ import { setSearchField } from '../actions';
 
 const mapStateToProps = state => {
 	return {
-		searchField: state.searchRobots.searchField
+		searchField: state.searchField
 	}
 }
 
@@ -25,24 +25,18 @@ class App extends Component {
 		super();
 		this.state = {
 			robots: [],
-			searchField: ''
 		}
 	}
 
 	componentDidMount() {
-		console.log(this.props.store.getState());
-		
 		fetch('https://jsonplaceholder.typicode.com/users')
 			.then(response => response.json())
 			.then(users => this.setState({ robots: users }));
 	}
 
-	onSearchChange = e => {
-		this.setState({ searchField: e.target.value });
-	}
-
 	render() {
-		const { robots, searchField } = this.state;
+		const { robots } = this.state;
+		const { searchField, onSearchChange } = this.props;
 
 		const filteredRobots = robots.filter(robot => {
 			return robot.name.toLocaleLowerCase().includes(searchField.toLocaleLowerCase());
@@ -53,7 +47,7 @@ class App extends Component {
 			(
 				<div className='tc'>
 					<h1 className='f1' >RoboFriends</h1>
-					<SearchBox searchChange={this.onSearchChange} />
+					<SearchBox searchChange={onSearchChange} />
 					<Scroll>
 						<ErrorBoundry>
 						  <CardList robots={filteredRobots} />
