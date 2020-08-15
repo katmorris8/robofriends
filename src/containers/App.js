@@ -25,27 +25,18 @@ const mapDispatchToProps = dispatch => {
 }
 
 class App extends Component {
-	constructor() {
-		super();
-		this.state = {
-			robots: [],
-		}
-	}
-
 	componentDidMount() {
-		
-			// .then(users => this.setState({ robots: users }));
+		this.props.onRequestRobots();
 	}
 
 	render() {
-		const { robots } = this.state;
-		const { searchField, onSearchChange } = this.props;
-
+		const { searchField, onSearchChange, robots, isPending } = this.props;
+		
 		const filteredRobots = robots.filter(robot => {
 			return robot.name.toLocaleLowerCase().includes(searchField.toLocaleLowerCase());
 		})
 
-		return !robots.length ?
+		return isPending ?
 			<h1 className='tc f1'>Loading...</h1> :
 			(
 				<div className='tc'>
